@@ -1,0 +1,39 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #D9D9D9;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px; /* Adjust this for more/less spacing at the top */
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  .image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .responsive-image {
+    max-width: 100%;
+    max-height: 50vh;
+    object-fit: cover;
+  }
+  
