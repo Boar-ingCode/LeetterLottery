@@ -1,3 +1,4 @@
+/* Ensure the entire body and html take up the full height */
 body, html {
     height: 100%;
     margin: 0;
@@ -5,35 +6,141 @@ body, html {
     font-family: 'Montserrat', sans-serif;
   }
   
+  /* Flexbox to center everything vertically and horizontally */
   main {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     height: 100vh;
   }
   
+  /* Center the title at the top */
   .title-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 20px; /* Adjust this for more/less spacing at the top */
+    padding-top: 20px;
+    text-align: center;
   }
   
   h1 {
     font-size: 2.5rem;
-    color: #333;
+    color: #522B47;
     margin: 0;
   }
   
+  /* Image container ensures the image is responsive */
   .image-container {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
   
+  /* The image should be responsive */
   .responsive-image {
     max-width: 100%;
     max-height: 50vh;
     object-fit: cover;
+  }
+  
+  /* Button container with spacing from the image */
+  .button-container {
+    margin-top: 50px; /* 50px below the image */
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  /* Oval button with responsive padding and hover effect */
+  .oval-button {
+    background-color: #D9D9D9; /* Green background */
+    color: #522B47;
+    font-weight: 700;
+    padding: 15px 30px;
+    border: 2px solid black; /* Black border */
+    border-radius: 50px; /* Makes the button oval */
+    font-size: 1.5rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 100px;
+  }
+  
+  .oval-button:hover {
+    background-color: #522B47; /* Darker green on hover */
+    border-color: black; /* Ensure the border stays black on hover */
+    color:whitesmoke;
+  }
+
+  .arrow-l img, .arrow-r img {
+    height: 100%; /* Match the height of the button */
+    max-height: 50px; /* Optional: constrain the maximum height */
+    width: auto;
+    margin: 0 10px; /* Space between the arrows and the button */
+    margin: 0 10px; /* Space between the arrow and the button */
+    position: relative;
+    color: white;
+  }
+
+  .arrow-l img {
+    animation-delay: 0s; /* Start immediately */
+    animation: slideInOut 3s ease-in-out infinite; /* Animation */
+  }
+  
+  .arrow-r img {
+    animation-delay: 0s; /* Start with a slight delay */
+    animation: slideInOutRight 3s ease-in-out infinite; /* Animation */
+  }
+  
+  /* Animation keyframes for sliding in and out */
+  @keyframes slideInOut {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%); /* Start off-screen to the left */
+    }
+    20% {
+      opacity: 1;
+      transform: translateX(0); /* Fully on-screen */
+    }
+  }
+
+  @keyframes slideInOutRight {
+    0% {
+      opacity: 0;
+      transform: translateX(100%); /* Start off-screen to the right */
+    }
+    20% {
+      opacity: 1;
+      transform: translateX(0); /* Fully on-screen */
+    }
+  }
+
+  /* Make everything responsive, especially for smaller screens */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+  
+    .oval-button {
+      font-size: 1.2rem;
+      padding: 10px 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+  
+    .oval-button {
+      font-size: 1rem;
+      padding: 8px 16px;
+    }
+
+    .arrow-l img, .arrow-r img {
+        max-height: 30px; /* Adjust for smaller screens */
+      }
   }
   
