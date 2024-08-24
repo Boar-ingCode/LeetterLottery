@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FlyingWordsComponent } from './flying-words/flying-words.component';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  imports: [FlyingWordsComponent], 
   standalone: true,
 })
 export class AppComponent implements OnInit {
