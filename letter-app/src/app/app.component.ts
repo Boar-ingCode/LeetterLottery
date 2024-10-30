@@ -1,30 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FlyingWordsComponent } from './flying-words/flying-words.component';
+import { Router, RouterOutlet } from '@angular/router';
+import { LetterSystemComponent } from './letter-system/letter-system.component';
+import { HomePageComponent } from './home-page/home-page.component';
+
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [FlyingWordsComponent], 
+  imports: [FlyingWordsComponent, RouterOutlet, LetterSystemComponent, HomePageComponent], 
   standalone: true,
 })
 export class AppComponent implements OnInit {
-  titles: string[] = [
-    'Welcome to My Site',
-    'Explore the World of Code',
-    'Your Gateway to Innovation',
-    'Discover New Possibilities',
-    'Angular Rocks!'
-  ];
-  randomTitle: string = '';
 
   ngOnInit(): void {
-    this.randomTitle = this.getRandomTitle();
+  
   }
 
-  getRandomTitle(): string {
-    const index = Math.floor(Math.random() * this.titles.length);
-    return this.titles[index];
-  }
 }
