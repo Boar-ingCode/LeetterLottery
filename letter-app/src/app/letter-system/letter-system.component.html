@@ -1,1 +1,64 @@
-<h1>letter-system works!</h1>
+<main>
+  <div class="title-container">
+    <h1>LUC(KY) KOPERTY</h1>
+  </div>
+  <div class="container">
+    <div class="legend-container">
+      <div class="legend-title">
+        <img src="../assets/images/L-Icon.png" alt="L-letter">
+        <p>agrody</p>
+      </div>
+      <ol class="legend-list">
+        <li>Wyciszenie streamera na 5 minut</li>
+        <li>100 tc</li>
+        <li>Rajd smoka</li>
+        <li>100 tc</li>
+        <li>Rajd smoka</li>
+        <li>100 tc</li>
+        <li>Rajd smoka</li>
+        <li>100 tc</li>
+        <li>Rajd smoka</li>
+      </ol>
+    </div>
+    <div class="letters-container">
+      <div class="envelop-numbers"><span>1</span></div>
+      <div class="envelope-block">
+        <img src="../assets/images/envelope.png" (click)="pickEnvelope($event)" alt="envelope1">
+        <span>1</span>
+      </div>
+      <div class="envelope-block">
+        <img src="../assets/images/envelope.png" (click)="pickEnvelope($event)" alt="envelope2">
+        <span>2</span>
+      </div>
+      <div class="envelope-block">
+        <img src="../assets/images/envelope.png" (click)="pickEnvelope($event)" alt="envelope3">
+        <span>3</span>
+      </div>
+      <div class="envelope-block">
+        <img src="../assets/images/envelope.png" (click)="pickEnvelope($event)" alt="envelope4">
+        <span>4</span>
+      </div>
+      <div class="envelope-block">
+        <img src="../assets/images/envelope.png" (click)="pickEnvelope($event)" alt="envelope5">
+        <span>5</span>
+      </div>
+      <div class="envelope-block">
+        <img src="../assets/images/envelope.png" (click)="pickEnvelope($event)" alt="envelope6">
+        <span>6</span>
+      </div>
+      <div class="envelope-block">
+        <img src="../assets/images/envelope.png" (click)="pickEnvelope($event)" alt="envelope7">
+        <span>7</span>
+      </div>
+      <div class="envelope-block">
+        <img src="../assets/images/envelope.png" (click)="pickEnvelope($event)" alt="envelope8">
+        <span>8</span>
+      </div>
+    </div>    
+    <div class="popup" *ngIf="isPopupVisible">
+      <div class="popup-content">
+        <p>Twój tekst w popupie.</p>
+        <button (click)="closePopup()">Zamknij</button>
+      </div>
+    </div>
+  <main>
