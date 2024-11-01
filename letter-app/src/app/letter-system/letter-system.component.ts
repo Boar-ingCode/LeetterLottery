@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ElementRef, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 @Component({
   selector: 'app-letter-system',
@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
 })
 export class LetterSystemComponent {
   selectedEnvelope: HTMLElement | null = null;
-  isGifDisplayed: boolean = false; // Flaga, aby śledzić, czy GIF był już wyświetlony
-  isPopupVisible: boolean = false; // Flaga, aby kontrolować widoczność popupu
+
+  constructor(private renderer: Renderer2, private el: ElementRef) {}
 
   pickEnvelope(event: Event): void {
     event.stopPropagation();
@@ -22,51 +22,50 @@ export class LetterSystemComponent {
       return;
     }
 
-    // Usuń GIF z poprzedniego elementu, jeśli istnieje
-    if (this.selectedEnvelope && this.selectedEnvelope !== clickedBlock) {
-      const previousImage = this.selectedEnvelope.querySelector('img') as HTMLImageElement;
-      previousImage.src = 'assets/images/envelope.png'; // Powrót do obrazu statycznego
-      this.selectedEnvelope.classList.remove('centered');
+    // Jeśli istnieje poprzednio wybrany element, przywróć go do oryginalnej pozycji
+    if (this.selectedEnvelope) {
+      this.resetSelectedEnvelope();
     }
 
-    // Zmiana obrazu na GIF w klikniętym elemencie, tylko jeśli GIF nie był wcześniej wyświetlony
-    const clickedImage = clickedBlock.querySelector('img') as HTMLImageElement;
-    if (!this.isGifDisplayed) {
-      clickedImage.src = 'assets/images/envelope-animation.gif'; // Wyświetl GIF
-      this.isGifDisplayed = true; // Ustaw flagę, że GIF został wyświetlony
-    } else {
-      this.showPopup(); // Wyświetl popup, jeśli GIF już był wyświetlony
-    }
+    // Dodaj pusty div w miejscu klikniętego elementu
+    const placeholder = this.renderer.createElement('div');
+    this.renderer.addClass(placeholder, 'placeholder');
+    clickedBlock.parentNode?.insertBefore(placeholder, clickedBlock);
 
-    // Dodanie klasy 'centered' do klikniętego elementu
-    if (clickedBlock.classList.contains('centered')) {
-      clickedBlock.classList.remove('centered');
-      clickedImage.src = 'assets/images/envelope.png'; // Powrót do obrazu statycznego
+    // Przenieś kliknięty element na środek
+    this.selectedEnvelope = clickedBlock;
+    this.renderer.addClass(clickedBlock, 'centered');
+
+    // Dodaj efekt blur do innych elementów
+    const envelopeBlocks = this.el.nativeElement.querySelectorAll('.envelope-block');
+    envelopeBlocks.forEach((block: HTMLElement) => {
+      if (block !== clickedBlock) {
+        this.renderer.addClass(block, 'blur');
+      }
+    });
+  }
+
+  resetSelectedEnvelope(): void {
+    if (this.selectedEnvelope) {
+      this.renderer.removeClass(this.selectedEnvelope, 'centered');
+      const placeholder = this.el.nativeElement.querySelector('.placeholder');
+      if (placeholder) {
+        placeholder.replaceWith(this.selectedEnvelope);
+      }
       this.selectedEnvelope = null;
-    } else {
-      clickedBlock.classList.add('centered');
-      this.selectedEnvelope = clickedBlock;
+
+      // Usuń efekt blur z innych elementów
+      const envelopeBlocks = this.el.nativeElement.querySelectorAll('.envelope-block');
+      envelopeBlocks.forEach((block: HTMLElement) => {
+        this.renderer.removeClass(block, 'blur');
+      });
     }
-  }
-
-  // Funkcja wyświetlająca okno popup
-  showPopup(): void {
-    this.isPopupVisible = true;
-  }
-
-  // Funkcja zamykająca okno popup
-  closePopup(): void {
-    this.isPopupVisible = false;
-    this.isGifDisplayed = false
   }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     if (this.selectedEnvelope) {
-      const previousImage = this.selectedEnvelope.querySelector('img') as HTMLImageElement;
-      previousImage.src = 'assets/images/envelope.png'; // Powrót do obrazu statycznego
-      this.selectedEnvelope.classList.remove('centered');
-      this.selectedEnvelope = null;
+      this.resetSelectedEnvelope();
     }
   }
 }
